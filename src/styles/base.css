@@ -1,0 +1,80 @@
+/* Tiesverse: Plum-exact editorial system
+   Tokens extracted from plumhq.com: bg #fffaf2, ink rgb(70,9,50),
+   accent #ff4052, headings GT-Alpina→Fraunces (lh 1.0, ls -0.03em, wt 400),
+   body Passenger→Manrope (16/21), buttons radius 4px. */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --paper:#fffaf2;        /* warm cream page bg */
+  --cream:#fff3e3;        /* deeper cream band */
+  --ink:#1d160d;          /* warm near-black */
+  --ink-2:#2a2014;
+  --soft:rgba(29,22,13,.6);/* muted text */
+  --rule:#ecdfcd;         /* warm hairline */
+  --accent:#fe7a00;       /* Tiesverse saffron (restored) */
+  --accent-d:#e56d00;
+  --dark:#15140f;         /* near-black (dark sections) */
+  --dark-2:#0c0b08;
+  --dark-3:#211f1a;
+  --on-dark:#fff3e6;      /* cream text on dark */
+  --on-dark-soft:rgba(255,243,230,.62);
+
+  --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+  --sans:'Manrope', system-ui, -apple-system, sans-serif;
+
+  --maxw:1280px;          /* container */
+  --gutter:40px;          /* horizontal padding */
+  --sec:128px;            /* section vertical padding */
+  --radius:4px;           /* Plum button/card radius */
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:16px;line-height:1.31;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* shared primitives */
+.container{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+@media(max-width:600px){.container{padding-left:22px;padding-right:22px}}
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.03em;line-height:1.0}
+.ital{font-family:var(--serif);font-style:italic;font-weight:400}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+/* kicker labels removed site-wide (the small uppercase line above headings) */
+.eyebrow,.cr-eyebrow,.lu-cover-eyebrow,.ce-cover-eyebrow,.ce-no{display:none!important}
+
+/* buttons (Plum: radius 4px, pad ~14x24) */
+.btn{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:600;padding:14px 24px;border-radius:var(--radius);border:1px solid transparent;transition:background .2s,transform .2s,color .2s,border-color .2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-d);transform:translateY(-1px)}
+.btn-dark{background:var(--ink);color:var(--paper)}
+.btn-dark:hover{background:var(--accent)}
+.btn-outline{background:transparent;color:var(--ink);border-color:var(--rule)}
+.btn-outline:hover{border-color:var(--ink)}
+.btn-light{background:#fff;color:var(--ink)}
+.btn-light:hover{transform:translateY(-1px)}
+.btn-ghost-dark{background:transparent;color:var(--on-dark);border-color:rgba(255,241,229,.28)}
+.btn-ghost-dark:hover{background:rgba(255,255,255,.1)}
+
+/* ---- image placeholders (swap for real AI images) ---- */
+.imgph{position:relative;display:flex;align-items:center;justify-content:center;text-align:center;
+  border:1.5px dashed color-mix(in srgb, var(--accent) 55%, var(--rule));border-radius:12px;overflow:hidden;color:var(--soft);
+  background:repeating-linear-gradient(45deg,var(--cream),var(--cream) 11px,#fff 11px,#fff 22px)}
+.imgph-in{padding:22px;display:flex;flex-direction:column;align-items:center;gap:7px}
+.imgph-ic{font-size:24px;color:var(--accent);line-height:1}
+.imgph-label{font-size:13px;font-weight:700;color:var(--ink);max-width:240px}
+.imgph-size{font-size:11px;letter-spacing:.04em;color:var(--soft)}
+.imgph.dark{border-color:rgba(255,243,230,.32);color:var(--on-dark-soft);
+  background:repeating-linear-gradient(45deg,#1b1914,#1b1914 11px,#221f18 11px,#221f18 22px)}
+.imgph.dark .imgph-label{color:#fff}
+.imgph-fill{width:100%;height:100%;border:none;border-radius:0}
+/* full-bleed background image placeholder (text overlays) */
+.imgbg{position:absolute;inset:0;z-index:0;background:repeating-linear-gradient(45deg,#161311,#161311 16px,#1d1915 16px,#1d1915 32px)}
+.imgbg.has-img{background:#1a120a}
+.imgbg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%}
+.imgbg-scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,11,8,.5),rgba(12,11,8,.8))}
+.imgbg.has-img .imgbg-scrim{background:linear-gradient(180deg,rgba(20,10,2,.10) 0%,rgba(18,9,2,.16) 48%,rgba(12,7,2,.52) 100%)}
+.imgbg-badge{position:absolute;left:18px;bottom:16px;z-index:1;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,243,230,.72);background:rgba(0,0,0,.45);padding:6px 12px;border-radius:30px;border:1px solid rgba(255,243,230,.18)}
