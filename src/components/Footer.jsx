@@ -75,7 +75,7 @@ export default function Footer() {
 
         <div className="ft-reg">Tiesverse Foundation · CIN U88900MP2025NPL079342</div>
         <div className="ft-bottom">
-          <span className="ft-made">© 2026 Tiesverse Foundation · Made with <img className="ft-heart" src="/work/emoji-orange-heart.png" alt="love" /> by the Tech Team at TIES</span>
+          <span className="ft-made">© 2026 Tiesverse Foundation · Made with <img className="ft-heart" src="/work/emoji-orange-heart.webp" alt="love" /> by the Tech Team at TIES</span>
           <div className="ft-legal">
             <Link to="/privacy">Privacy</Link>
             <Link to="/terms">Terms</Link>

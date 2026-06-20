@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { ImgPlaceholder } from '../components/ImgPlaceholder'
 import { WEBINARS, GUESTS, slugify } from '../data/site'
+import { fetchWebinarEvents, fetchGuests } from '../apiClient'
 
 const REGISTER = 'https://tiesverse.com/webinar'
 const initials = (n) =>
   n.replace(/\(.*?\)/g, '').split(' ').filter((w) => /[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join('')
-
-const upcoming = WEBINARS.filter((w) => w.poster)
-const past = WEBINARS.filter((w) => !w.poster)
 
 function dateParts(str) {
   const [md, year] = str.split(', ')
@@ -85,6 +83,32 @@ function Feed({ items, isPast }) {
 
 export default function Webinars() {
   const [tab, setTab] = useState('upcoming')
+  const [allWebinars, setAllWebinars] = useState(WEBINARS)
+  const [allGuests, setAllGuests] = useState(GUESTS)
+
+  useEffect(() => {
+    fetchWebinarEvents().then((live) => {
+      if (live && Array.isArray(live) && live.length) {
+        // Normalize Turso event shape to match static WEBINARS shape
+        const normalized = live.map((e) => ({
+          date: e.startAt ? new Date(e.startAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
+          time: e.startAt ? new Date(e.startAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST' : '',
+          speaker: e.organizer?.name || '',
+          org: e.organizer?.bio || '',
+          topic: e.title || '',
+          poster: e.coverImageUrl || null,
+          register: e.meetingUrl || '',
+        }))
+        setAllWebinars(normalized)
+      }
+    })
+    fetchGuests().then((live) => {
+      if (live && Array.isArray(live) && live.length) setAllGuests(live)
+    })
+  }, [])
+
+  const upcoming = allWebinars.filter((w) => w.poster)
+  const past = allWebinars.filter((w) => !w.poster)
   const items = tab === 'upcoming' ? upcoming : past
   return (
     <>

@@ -10,44 +10,44 @@ const initials = (n) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]
 
 // associations → real logo files in /public/work
 const ASSOC_LOGOS = {
-  'Government of India': 'logo-govt-india.png',
-  'Govt of NCT of Delhi': 'logo-govt-delhi.png',
-  'Government of Uttar Pradesh': 'logo-govt-up.png',
-  'Government of Maharashtra': 'logo-govt-maharashtra.png',
-  'Ministry of Finance': 'logo-min-finance.png',
-  'Ministry of External Affairs': 'logo-min-mea.png',
-  'Ministry of Electronics & IT': 'logo-min-meity.png',
-  'Ministry of Road Transport & Highways': 'logo-min-roadtransport.png',
-  'Ministry of Education': 'logo-min-education.png',
-  'Indian Council of World Affairs': 'logo-icwa.png',
-  'UNESCO': 'logo-unesco.png',
-  'INDIAai': 'logo-indiaai.png',
+  'Government of India': 'logo-govt-india.webp',
+  'Govt of NCT of Delhi': 'logo-govt-delhi.webp',
+  'Government of Uttar Pradesh': 'logo-govt-up.webp',
+  'Government of Maharashtra': 'logo-govt-maharashtra.webp',
+  'Ministry of Finance': 'logo-min-finance.webp',
+  'Ministry of External Affairs': 'logo-min-mea.webp',
+  'Ministry of Electronics & IT': 'logo-min-meity.webp',
+  'Ministry of Road Transport & Highways': 'logo-min-roadtransport.webp',
+  'Ministry of Education': 'logo-min-education.webp',
+  'Indian Council of World Affairs': 'logo-icwa.webp',
+  'UNESCO': 'logo-unesco.webp',
+  'INDIAai': 'logo-indiaai.webp',
 }
 
 // talent-pool institution logos fetched from Wikipedia (real colour marks → render as-is).
 // Names without an entry fall back to a clean serif wordmark cell.
 const TALENT_LOGOS = {
-  'AIIMS': 'logos/aiims.png',
-  'IIT Dhanbad': 'logos/iit-dhanbad.png',
-  'NIT Bhopal': 'logos/nit-bhopal.png',
+  'AIIMS': 'logos/aiims.webp',
+  'IIT Dhanbad': 'logos/iit-dhanbad.webp',
+  'NIT Bhopal': 'logos/nit-bhopal.webp',
   "King's College London": 'logos/kings-college-london.svg',
-  'University of Glasgow': 'logos/university-of-glasgow.png',
+  'University of Glasgow': 'logos/university-of-glasgow.webp',
   'University of Oxford': 'logos/university-of-oxford.svg',
-  'Manipal University': 'logos/manipal-university.png',
-  'Christ University': 'logos/christ-university.png',
-  'Symbiosis': 'logos/symbiosis.png',
-  'University of Delhi': 'logos/university-of-delhi.png',
+  'Manipal University': 'logos/manipal-university.webp',
+  'Christ University': 'logos/christ-university.webp',
+  'Symbiosis': 'logos/symbiosis.webp',
+  'University of Delhi': 'logos/university-of-delhi.webp',
   'JNU': 'logos/jnu.svg',
-  'University of Mumbai': 'logos/university-of-mumbai.png',
-  'MS University of Baroda': 'logos/ms-university-of-baroda.png',
-  'Savitribai Phule Pune University': 'logos/savitribai-phule-pune-university.png',
-  'BBAU Lucknow': 'logos/bbau-lucknow.png',
-  'University of Calcutta': 'logos/university-of-calcutta.png',
-  'Jadavpur University': 'logos/jadavpur-university.png',
+  'University of Mumbai': 'logos/university-of-mumbai.webp',
+  'MS University of Baroda': 'logos/ms-university-of-baroda.webp',
+  'Savitribai Phule Pune University': 'logos/savitribai-phule-pune-university.webp',
+  'BBAU Lucknow': 'logos/bbau-lucknow.webp',
+  'University of Calcutta': 'logos/university-of-calcutta.webp',
+  'Jadavpur University': 'logos/jadavpur-university.webp',
 }
 
 // colour logos that must render as-is (everything else is white artwork → inverted to mono)
-const ASIS_LOGOS = new Set(['logo-unesco.png', 'logo-indiaai.png'])
+const ASIS_LOGOS = new Set(['logo-unesco.webp', 'logo-indiaai.webp'])
 
 function LogoCell({ name, src, asIs }) {
   const [ok, setOk] = React.useState(Boolean(src))
@@ -71,7 +71,7 @@ function FamilyPhoto() {
       <em>Add a wide group photo at /public/work/team-group.jpg</em>
     </div>
   )
-  return <div className="ab-family"><img src="/work/team-group.jpg" alt="The Tiesverse team" onError={() => setOk(false)} /></div>
+  return <div className="ab-family"><img src="/work/team-group.webp" alt="The Tiesverse team" onError={() => setOk(false)} /></div>
 }
 
 export default function About() {

@@ -1,17 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { ImgPlaceholder } from '../components/ImgPlaceholder'
 import { CITY_EVENTS, CONTACT, slugify } from '../data/site'
+import { fetchEvents } from '../apiClient'
 
 const REGISTER = 'https://tiesverse.com/events'
-
-const flagship = CITY_EVENTS.find((e) => e.flagship)
-const upcoming = CITY_EVENTS.filter((e) => !e.past).sort((a, b) => new Date(a.date) - new Date(b.date))
-const cities = ['All', ...Array.from(new Set(upcoming.map((e) => e.city)))]
-const categories = ['All', ...Array.from(new Set(upcoming.map((e) => e.category)))]
 
 const priceLabel = (p) => (p === 0 ? 'Free' : `₹${p}`)
 const initials = (n) => n.replace(/\(.*?\)/g, '').split(' ').filter((w) => /[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join('')
@@ -63,6 +59,18 @@ function EventCard({ e }) {
 export default function Events() {
   const [city, setCity] = useState('All')
   const [cat, setCat] = useState('All')
+  const [allEvents, setAllEvents] = useState(CITY_EVENTS)
+
+  useEffect(() => {
+    fetchEvents().then((live) => {
+      if (live && Array.isArray(live) && live.length) setAllEvents(live)
+    })
+  }, [])
+
+  const upcoming = allEvents.filter((e) => !e.past).sort((a, b) => new Date(a.date || a.created_at) - new Date(b.date || b.created_at))
+  const flagship = allEvents.find((e) => e.flagship)
+  const cities = ['All', ...Array.from(new Set(upcoming.map((e) => e.city).filter(Boolean)))]
+  const categories = ['All', ...Array.from(new Set(upcoming.map((e) => e.category).filter(Boolean)))]
   const list = upcoming.filter((e) => (city === 'All' || e.city === city) && (cat === 'All' || e.category === cat))
 
   return (
@@ -125,7 +133,7 @@ export default function Events() {
                   <span><strong>{flagship.attended}</strong>Participation</span>
                 </div>
               </div>
-              <div className="ce-flagship-media"><img className="ce-flagship-img" src="/work/event-india-ai.jpg" alt="India AI Impact Summit poster" /></div>
+              <div className="ce-flagship-media"><img className="ce-flagship-img" src="/work/event-india-ai.webp" alt="India AI Impact Summit poster" /></div>
             </section>
           )}
 

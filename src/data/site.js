@@ -1,11 +1,11 @@
-import tiesverse from '../assets/brand/tiesverse.png'
-import foreignPolicy from '../assets/brand/foreign-policy.png'
-import upties from '../assets/brand/upties.png'
-import bharatAge from '../assets/brand/bharat-age.png'
-import ties from '../assets/brand/ties.png'
-import indiaElections from '../assets/brand/india-elections.png'
-import finties from '../assets/brand/finties.png'
-import nimble from '../assets/brand/nimble.png'
+import tiesverse from '../assets/brand/tiesverse.webp'
+import foreignPolicy from '../assets/brand/foreign-policy.webp'
+import upties from '../assets/brand/upties.webp'
+import bharatAge from '../assets/brand/bharat-age.webp'
+import ties from '../assets/brand/ties.webp'
+import indiaElections from '../assets/brand/india-elections.webp'
+import finties from '../assets/brand/finties.webp'
+import nimble from '../assets/brand/nimble.webp'
 
 export const PARENT = {
   name: 'Tiesverse',
@@ -96,29 +96,29 @@ export const ASSOCIATIONS = [
 
 // partner / government logos available in /work (white, transparent, for dark bg)
 export const LOGOS = {
-  'Government of India': 'logo-govt-india.png',
-  'Govt of NCT of Delhi': 'logo-govt-delhi.png',
-  'Government of Uttar Pradesh': 'logo-govt-up.png',
-  'Government of Maharashtra': 'logo-govt-maharashtra.png',
-  'Ministry of Finance': 'logo-min-finance.png',
-  'Ministry of External Affairs': 'logo-min-mea.png',
-  'Ministry of Electronics & IT': 'logo-min-meity.png',
-  'Ministry of Road Transport & Highways': 'logo-min-roadtransport.png',
-  'Ministry of Education': 'logo-min-education.png',
-  'Indian Council of World Affairs': 'logo-icwa.png',
-  'UNESCO': 'logo-unesco.png',
-  'INDIAai': 'logo-indiaai.png',
-  'AEOS Group': 'logo-aeos.png',
+  'Government of India': 'logo-govt-india.webp',
+  'Govt of NCT of Delhi': 'logo-govt-delhi.webp',
+  'Government of Uttar Pradesh': 'logo-govt-up.webp',
+  'Government of Maharashtra': 'logo-govt-maharashtra.webp',
+  'Ministry of Finance': 'logo-min-finance.webp',
+  'Ministry of External Affairs': 'logo-min-mea.webp',
+  'Ministry of Electronics & IT': 'logo-min-meity.webp',
+  'Ministry of Road Transport & Highways': 'logo-min-roadtransport.webp',
+  'Ministry of Education': 'logo-min-education.webp',
+  'Indian Council of World Affairs': 'logo-icwa.webp',
+  'UNESCO': 'logo-unesco.webp',
+  'INDIAai': 'logo-indiaai.webp',
+  'AEOS Group': 'logo-aeos.webp',
 }
 
 export const ACHIEVEMENT = 'Recipient of the Anuvadhini Fellow Award by AICTE, Ministry of Education, India.'
 
 export const WEBINARS = [
-  { date: 'Jul 12, 2026', time: '11:00 AM IST', speaker: 'TIES', org: 'Inter-college debate competition', topic: 'Checkmate & Chatter: The TIES Debate Competition', tag: 'Workshop', kind: 'workshop', poster: 'poster-checkmate-chatter.png', register: 'https://www.tiesverse.com/workshop' },
-  { date: 'Jun 04, 2026', time: '4:00 PM IST', speaker: 'Ms. Carice Witte', org: 'Founder & Exec. Director, SIGNAL Group', topic: 'Middle Powers in the Age of Great Power Competition', tag: 'Upcoming', poster: 'poster-witte.png' },
-  { date: 'May 17, 2026', time: '4:00 PM IST', speaker: 'Viraansh Bhanushali', org: 'Oxford · The Oxford Union', topic: 'New Voices, New Power: Youth and India’s Evolving Political Arena', poster: 'poster-bhanushali.png' },
-  { date: 'May 08, 2026', time: '4:30 PM IST', speaker: 'Antara Ghosal Singh', org: 'Fellow, ORF', topic: 'India’s BRICS Presidency: Balancing China’s Influence', poster: 'poster-ghosal-singh.png' },
-  { date: 'Apr 23, 2026', time: '4:00 PM IST', speaker: 'Prof. Thomas Pogge', org: 'Yale University', topic: 'The Structural Causes of World Poverty', poster: 'poster-pogge.png' },
+  { date: 'Jul 12, 2026', time: '11:00 AM IST', speaker: 'TIES', org: 'Inter-college debate competition', topic: 'Checkmate & Chatter: The TIES Debate Competition', tag: 'Workshop', kind: 'workshop', poster: 'poster-checkmate-chatter.webp', register: 'https://www.tiesverse.com/workshop' },
+  { date: 'Jun 04, 2026', time: '4:00 PM IST', speaker: 'Ms. Carice Witte', org: 'Founder & Exec. Director, SIGNAL Group', topic: 'Middle Powers in the Age of Great Power Competition', tag: 'Upcoming', poster: 'poster-witte.webp' },
+  { date: 'May 17, 2026', time: '4:00 PM IST', speaker: 'Viraansh Bhanushali', org: 'Oxford · The Oxford Union', topic: 'New Voices, New Power: Youth and India’s Evolving Political Arena', poster: 'poster-bhanushali.webp' },
+  { date: 'May 08, 2026', time: '4:30 PM IST', speaker: 'Antara Ghosal Singh', org: 'Fellow, ORF', topic: 'India’s BRICS Presidency: Balancing China’s Influence', poster: 'poster-ghosal-singh.webp' },
+  { date: 'Apr 23, 2026', time: '4:00 PM IST', speaker: 'Prof. Thomas Pogge', org: 'Yale University', topic: 'The Structural Causes of World Poverty', poster: 'poster-pogge.webp' },
   { date: 'Apr 10–11, 2026', speaker: 'Dr. Reshmi Kazi', org: 'Jamia Millia Islamia', topic: 'Nuclear Geopolitics in a Fragmented World Order: Workshop' },
   { date: 'Mar 28, 2026', speaker: 'Capt. Sarabjeet Singh Parmar (Retd.)', org: 'Council for Strategic & Defence Research', topic: 'Balancing Freedom of Navigation and Military Posturing' },
   { date: 'Feb 13, 2026', speaker: 'Dr. Anamika Asthana', org: 'SIS, Pune', topic: 'Nuclear Politics and Strategy' },
@@ -149,8 +149,8 @@ export const CITY_EVENTS = [
 ]
 
 export const GUESTS = [
-  { name: 'Shashi Tharoor', role: 'MP, Lok Sabha', photo: 'guest-tharoor.png' },
-  { name: 'Priyanka Chaturvedi', role: 'MP, Rajya Sabha', photo: 'guest-chaturvedi.png' },
+  { name: 'Shashi Tharoor', role: 'MP, Lok Sabha', photo: 'guest-tharoor.webp' },
+  { name: 'Priyanka Chaturvedi', role: 'MP, Rajya Sabha', photo: 'guest-chaturvedi.webp' },
   { name: 'Jitin Prasada', role: 'MoS, Commerce & Industry' },
   { name: 'Prof. Thomas Pogge', role: 'Yale University' },
   { name: 'Ms. Carice Witte', role: 'SIGNAL Group' },
@@ -164,17 +164,17 @@ export const GUESTS = [
 ]
 
 export const WORK = [
-  { t: 'AI Wars: a new Manhattan Project', cat: 'Technology', img: 'insight-ai-wars.png' },
-  { t: 'What is the Pax Silica Initiative?', cat: 'Technology', img: 'insight-pax-silica.jpg' },
-  { t: 'Why Budget 2026 matters for India', cat: 'Economy', img: 'insight-budget-2026.png' },
-  { t: 'The Mother of All Deals: a new era of India–EU FTA', cat: 'Geopolitics', img: 'mother-of-all-deals.jpg' },
-  { t: 'Kamikaze drones: jack of the new-age wars', cat: 'Defence', img: 'insight-kamikaze.png' },
-  { t: 'Fact vs Fiction: Pakistan’s failed Amritsar narrative', cat: 'Analysis', img: 'insight-fact-fiction.png' },
-  { t: 'India and the Arctic: a new frontier of trade & geopolitics', cat: 'Geopolitics', img: 'insight-arctic.jpg' },
-  { t: '7 geopolitical events to watch', cat: 'Briefs', img: 'insight-7-events.png' },
-  { t: 'Faith, Funds, Future', cat: 'Opinion', img: 'insight-faith-funds.png' },
-  { t: 'Gita & Natyashastra in UNESCO’s Memory of the World', cat: 'Culture', img: 'insight-unesco.png' },
-  { t: 'Sadak Suraksha Abhiyan: from policy to public conduct', cat: 'Public Policy', img: 'insight-sadak-suraksha.png' },
+  { t: 'AI Wars: a new Manhattan Project', cat: 'Technology', img: 'insight-ai-wars.webp' },
+  { t: 'What is the Pax Silica Initiative?', cat: 'Technology', img: 'insight-pax-silica.webp' },
+  { t: 'Why Budget 2026 matters for India', cat: 'Economy', img: 'insight-budget-2026.webp' },
+  { t: 'The Mother of All Deals: a new era of India–EU FTA', cat: 'Geopolitics', img: 'mother-of-all-deals.webp' },
+  { t: 'Kamikaze drones: jack of the new-age wars', cat: 'Defence', img: 'insight-kamikaze.webp' },
+  { t: 'Fact vs Fiction: Pakistan’s failed Amritsar narrative', cat: 'Analysis', img: 'insight-fact-fiction.webp' },
+  { t: 'India and the Arctic: a new frontier of trade & geopolitics', cat: 'Geopolitics', img: 'insight-arctic.webp' },
+  { t: '7 geopolitical events to watch', cat: 'Briefs', img: 'insight-7-events.webp' },
+  { t: 'Faith, Funds, Future', cat: 'Opinion', img: 'insight-faith-funds.webp' },
+  { t: 'Gita & Natyashastra in UNESCO’s Memory of the World', cat: 'Culture', img: 'insight-unesco.webp' },
+  { t: 'Sadak Suraksha Abhiyan: from policy to public conduct', cat: 'Public Policy', img: 'insight-sadak-suraksha.webp' },
 ]
 
 // ── Research reports ──────────────────────────────────────────────
@@ -186,17 +186,17 @@ export const REPORTS = [
   { slug: 'geopolitical-geometry-of-global-trade', topic: 'Geoeconomics', kind: 'Report', date: 'May 12, 2026', readTime: '18 min read',
     title: 'The Geopolitical Geometry of Global Trade',
     dek: 'How corridors, chokepoints and new alliances are redrawing the map of economic power — and where Bharat stands in the next decade.',
-    cover: 'map-trade.jpg', featured: true },
+    cover: 'map-trade.webp', featured: true },
   { slug: 'ai-wars-a-new-manhattan-project', topic: 'Technology', kind: 'Report', date: 'Apr 28, 2026', readTime: '14 min read',
-    title: 'AI Wars: a new Manhattan Project', dek: 'The compute race, the talent race, and the new logic of national power.', cover: 'insight-ai-wars.png' },
+    title: 'AI Wars: a new Manhattan Project', dek: 'The compute race, the talent race, and the new logic of national power.', cover: 'insight-ai-wars.webp' },
   { slug: 'why-budget-2026-matters', topic: 'Economy', kind: 'Brief', date: 'Apr 02, 2026', readTime: '9 min read',
-    title: 'Why Budget 2026 matters for India', dek: 'Reading the fine print like a strategist, not a headline.', cover: 'insight-budget-2026.png' },
+    title: 'Why Budget 2026 matters for India', dek: 'Reading the fine print like a strategist, not a headline.', cover: 'insight-budget-2026.webp' },
   { slug: 'india-and-the-arctic', topic: 'Geopolitics', kind: 'Report', date: 'Mar 19, 2026', readTime: '12 min read',
-    title: 'India and the Arctic: a new frontier', dek: 'Trade, resources and great-power competition at the top of the world.', cover: 'insight-arctic.jpg' },
+    title: 'India and the Arctic: a new frontier', dek: 'Trade, resources and great-power competition at the top of the world.', cover: 'insight-arctic.webp' },
   { slug: 'kamikaze-drones', topic: 'Defence', kind: 'Brief', date: 'Mar 05, 2026', readTime: '8 min read',
-    title: 'Kamikaze drones: jack of the new-age wars', dek: 'Cheap, expendable, decisive — how loitering munitions changed the battlefield.', cover: 'insight-kamikaze.png' },
+    title: 'Kamikaze drones: jack of the new-age wars', dek: 'Cheap, expendable, decisive — how loitering munitions changed the battlefield.', cover: 'insight-kamikaze.webp' },
   { slug: 'pax-silica-initiative', topic: 'Technology', kind: 'Report', date: 'Feb 22, 2026', readTime: '11 min read',
-    title: 'What is the Pax Silica Initiative?', dek: 'Semiconductors as statecraft, and the contest to set the rules.', cover: 'insight-pax-silica.jpg' },
+    title: 'What is the Pax Silica Initiative?', dek: 'Semiconductors as statecraft, and the contest to set the rules.', cover: 'insight-pax-silica.webp' },
 ]
 
 export const REPORT_TOPICS = ['All', 'Geopolitics', 'Geoeconomics', 'Economy', 'Technology', 'Defence']
@@ -242,16 +242,16 @@ export const MAPS = [
 
 // real map illustrations available in /work (keyed by MAPS title)
 export const MAP_IMAGES = {
-  'Division of Indian airspace': 'map-airspace.jpg',
-  'Chabahar Port & the INSTC': 'map-chabahar.png',
-  'Hydro projects on the Indus water system': 'map-indus.png',
-  'The Strait of Hormuz': 'map-hormuz.png',
-  'Who’s buying BRAHMOS': 'map-brahmos.png',
-  'Member nations of BRICS': 'map-brics.png',
-  'How the Quad encircles China': 'map-quad.png',
-  'The Domino Effect': 'map-domino.png',
-  "India's ballistic & cruise missile range": 'map-ballistic.png',
-  'Trade & security in the Indian Ocean': 'map-trade.jpg',
+  'Division of Indian airspace': 'map-airspace.webp',
+  'Chabahar Port & the INSTC': 'map-chabahar.webp',
+  'Hydro projects on the Indus water system': 'map-indus.webp',
+  'The Strait of Hormuz': 'map-hormuz.webp',
+  'Who’s buying BRAHMOS': 'map-brahmos.webp',
+  'Member nations of BRICS': 'map-brics.webp',
+  'How the Quad encircles China': 'map-quad.webp',
+  'The Domino Effect': 'map-domino.webp',
+  "India's ballistic & cruise missile range": 'map-ballistic.webp',
+  'Trade & security in the Indian Ocean': 'map-trade.webp',
 }
 
 // Where each map links when clicked (keyed by MAPS title). Fill in real
@@ -262,8 +262,8 @@ export const MAP_LINKS = {
 }
 
 export const TESTIMONIALS = [
-  { name: 'Shashi Tharoor', role: 'MP, Lok Sabha', quote: 'Different voices, one mission, standing united against terrorism. Proud to see our shared message resonate worldwide.', photo: 'guest-tharoor.png' },
-  { name: 'Priyanka Chaturvedi', role: 'MP, Rajya Sabha', quote: 'Fabulous. Clarity and creativity that genuinely get noticed.', photo: 'guest-chaturvedi.png' },
+  { name: 'Shashi Tharoor', role: 'MP, Lok Sabha', quote: 'Different voices, one mission, standing united against terrorism. Proud to see our shared message resonate worldwide.', photo: 'guest-tharoor.webp' },
+  { name: 'Priyanka Chaturvedi', role: 'MP, Rajya Sabha', quote: 'Fabulous. Clarity and creativity that genuinely get noticed.', photo: 'guest-chaturvedi.webp' },
 ]
 
 // Founders' voices: rotated through the nav dropdowns (alternating Pruthaviraj / Hardik)
@@ -330,24 +330,24 @@ export const NAV = [
 // as new content ships; every img below lives in /public/work.
 export const NAV_FEATURE = {
   'What we do': [
-    { img: 'insight-ai-wars.png', kind: 'Research', title: 'AI Wars: a new Manhattan Project', to: '/newsroom' },
-    { img: 'feat-media.png', kind: 'Media', title: 'Films, reels & reporting that travel', to: '/media' },
-    { img: 'tech-tabloid.png', kind: 'Technology', title: 'Tabloid by Ties: every side of the story', to: '/technology' },
+    { img: 'insight-ai-wars.webp', kind: 'Research', title: 'AI Wars: a new Manhattan Project', to: '/newsroom' },
+    { img: 'feat-media.webp', kind: 'Media', title: 'Films, reels & reporting that travel', to: '/media' },
+    { img: 'tech-tabloid.webp', kind: 'Technology', title: 'Tabloid by Ties: every side of the story', to: '/technology' },
   ],
   'Insights': [
-    { img: 'insight-budget-2026.png', kind: 'Latest analysis', title: 'Why Budget 2026 matters for India', to: '/newsroom' },
-    { img: 'map-hormuz.png', kind: 'New map', title: 'The Strait of Hormuz', to: '/maps' },
-    { img: 'poster-witte.png', kind: 'Webinar', title: 'Middle Powers & Great Power Competition', to: '/webinars' },
+    { img: 'insight-budget-2026.webp', kind: 'Latest analysis', title: 'Why Budget 2026 matters for India', to: '/newsroom' },
+    { img: 'map-hormuz.webp', kind: 'New map', title: 'The Strait of Hormuz', to: '/maps' },
+    { img: 'poster-witte.webp', kind: 'Webinar', title: 'Middle Powers & Great Power Competition', to: '/webinars' },
   ],
   'Engagements': [
-    { img: 'event-india-ai.jpg', kind: 'Flagship event', title: 'India AI Impact Summit', to: '/events' },
-    { img: 'poster-bhanushali.png', kind: 'Upcoming webinar', title: 'New Voices, New Power', to: '/webinars' },
-    { img: 'guest-tharoor.png', kind: 'Past guest', title: 'Shashi Tharoor, MP', to: '/guests' },
+    { img: 'event-india-ai.webp', kind: 'Flagship event', title: 'India AI Impact Summit', to: '/events' },
+    { img: 'poster-bhanushali.webp', kind: 'Upcoming webinar', title: 'New Voices, New Power', to: '/webinars' },
+    { img: 'guest-tharoor.webp', kind: 'Past guest', title: 'Shashi Tharoor, MP', to: '/guests' },
   ],
   'Company': [
-    { img: 'moodboard.png', kind: 'Brand', title: 'Our identity & design system', to: '/brand' },
-    { img: 'rmt-visual.png', kind: 'About', title: 'The movement, founders & team', to: '/about' },
-    { img: 'cta-backdrop.png', kind: 'Careers', title: 'Build it with us — we’re hiring', to: '/careers' },
+    { img: 'moodboard.webp', kind: 'Brand', title: 'Our identity & design system', to: '/brand' },
+    { img: 'rmt-visual.webp', kind: 'About', title: 'The movement, founders & team', to: '/about' },
+    { img: 'cta-backdrop.webp', kind: 'Careers', title: 'Build it with us — we’re hiring', to: '/careers' },
   ],
 }
 

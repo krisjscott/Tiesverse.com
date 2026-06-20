@@ -57,7 +57,7 @@ const SWATCHES = [
 const VOICE_USE = ['understanding', 'systems', 'institutions', 'civilization', 'strategy', 'intelligence', 'foresight', 'decode', 'read the world']
 const VOICE_AVOID = ['disruption', 'revolution', 'game-changing', 'world-class', 'cutting-edge', 'synergy', 'unlock', 'next-gen']
 
-const COVERS = ['insight-ai-wars.png', 'insight-pax-silica.jpg', 'strait-of-hormuz.jpg', 'mother-of-all-deals.jpg', 'insight-unesco.png', 'insight-budget-2026.png']
+const COVERS = ['insight-ai-wars.webp', 'insight-pax-silica.webp', 'strait-of-hormuz.webp', 'mother-of-all-deals.webp', 'insight-unesco.webp', 'insight-budget-2026.webp']
 const FUTURE = ['Research', 'Media', 'Technology', 'Education', 'Events']
 
 const FUNCTIONS = [
@@ -107,7 +107,7 @@ export default function Brand() {
 
         {/* establishing banner */}
         <section className="brx-band brx-zoom">
-          <Asset file="brand-establishing.png" className="brx-fill" label="Brand establishing shot: observatory at dawn, lone scale, saffron haze (1920×900)" dark fill />
+          <Asset file="brand-establishing.webp" className="brx-fill" label="Brand establishing shot: observatory at dawn, lone scale, saffron haze (1920×900)" dark fill />
         </section>
 
         {/* manifesto */}
@@ -122,7 +122,7 @@ export default function Brand() {
             <p>One landscape holds the whole brand. An observatory reads the sky; a river carries what it learns past cities and towers; an archive keeps the record; a tower watches the horizon; constellations draw the lines between. Every image we ever make is a corner of this single world.</p>
           </div>
           <div className="brx-universe-grid">
-            <div className="brx-zoom brx-universe-map"><Asset file="brand-universe-map.png" className="brx-fill" label="The world of Tiesverse, one map: observatory · river · archive · tower · constellation (1440×900)" dark fill /></div>
+            <div className="brx-zoom brx-universe-map"><Asset file="brand-universe-map.webp" className="brx-fill" label="The world of Tiesverse, one map: observatory · river · archive · tower · constellation (1440×900)" dark fill /></div>
             <ul className="brx-legend">
               {LEGEND.map(([s, m]) => (
                 <li key={s}><strong>{s}</strong><span>{m}</span></li>
@@ -133,7 +133,7 @@ export default function Brand() {
 
         {/* built for bharat */}
         <section className="brx-feature brx-zoom">
-          <Asset file="brand-bharat.png" className="brx-fill" label="Built for Bharat: wide hero, monumental sandstone at dusk (1920×640)" dark fill />
+          <Asset file="brand-bharat.webp" className="brx-fill" label="Built for Bharat: wide hero, monumental sandstone at dusk (1920×640)" dark fill />
           <div className="brx-feature-cap"><h2 className="serif">Built for Bharat.</h2></div>
         </section>
 
@@ -165,7 +165,7 @@ export default function Brand() {
         <section className="brx-signs-band">
           {SYMBOLS.map((s) => (
             <article className="sign-card" key={s.sym} style={{ '--c': s.c }}>
-              <div className="sign-img"><Asset file={`sign-${s.sym.toLowerCase()}.png`} className="brx-fill" label={`${s.sym} (${s.maps}): ${s.dim}`} /></div>
+              <div className="sign-img"><Asset file={`sign-${s.sym.toLowerCase()}.webp`} className="brx-fill" label={`${s.sym} (${s.maps}): ${s.dim}`} /></div>
               <div className="sign-panel">
                 <h3 className="sign-name">{s.sym}</h3>
                 <span className="sign-maps">{s.maps}</span>
@@ -200,7 +200,7 @@ export default function Brand() {
           <div className="brx-prose"><h2 className="serif">The world it lives in.</h2>
             <p>Build only from these, and nothing breaks. Knowledge, scale, curiosity, civilization: observatories and maps, vast skies and endless valleys, instruments and archives, rivers and trade routes and towers. The vocabulary is narrow on purpose. A narrow world is a recognisable one.</p>
           </div>
-          <div className="brx-moodboard brx-zoom"><Asset file="moodboard.png" className="brx-moodboard-img" ratio="1 / 1" label="The world it lives in: moodboard (1600×1600)" /></div>
+          <div className="brx-moodboard brx-zoom"><Asset file="moodboard.webp" className="brx-moodboard-img" ratio="1 / 1" label="The world it lives in: moodboard (1600×1600)" /></div>
         </section>
 
         {/* statement */}
@@ -299,8 +299,8 @@ export default function Brand() {
             <p>The world is understood through maps, and the GeoAtlas is becoming our sharpest instrument. Satellite relief, a saffron key, sparing labels: geopolitics drawn so a thirteen-year-old and a diplomat read it the same way. The map is an argument with the noise removed.</p>
           </div>
           <div className="brx-maps">
-            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/map-airspace.jpg" alt="Division of Indian airspace" /></div><figcaption>Division of Indian airspace</figcaption></figure>
-            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/map-trade.jpg" alt="Trade &amp; security in the Indian Ocean" /></div><figcaption>Trade &amp; security in the Indian Ocean</figcaption></figure>
+            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/map-airspace.webp" alt="Division of Indian airspace" /></div><figcaption>Division of Indian airspace</figcaption></figure>
+            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/map-trade.webp" alt="Trade &amp; security in the Indian Ocean" /></div><figcaption>Trade &amp; security in the Indian Ocean</figcaption></figure>
           </div>
         </section>
 
@@ -319,7 +319,7 @@ export default function Brand() {
             <p>The people we host enter the same world. One warm key light from the side, a near-black ground, framing kept tight at 4:5. We preserve the face and grade the rest into saffron and shadow, so a guest belongs beside an observatory without ever being lit like one.</p>
           </div>
           <div className="brx-portraits">
-            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/guest-tharoor.png" alt="Graded portrait example" /></div><figcaption>Graded: warm key, near-black ground, 4:5</figcaption></figure>
+            <figure className="brx-zoom-fig"><div className="brx-zoom"><img src="/work/guest-tharoor.webp" alt="Graded portrait example" /></div><figcaption>Graded: warm key, near-black ground, 4:5</figcaption></figure>
             <figure className="brx-zoom-fig"><div className="brx-zoom"><ImgPlaceholder label="Source portrait, before grade (1000×1250)" ratio="4 / 5" /></div><figcaption>Source, before grade</figcaption></figure>
           </div>
         </section>

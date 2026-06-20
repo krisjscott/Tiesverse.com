@@ -121,7 +121,7 @@ export default function EventDetail({ kind }) {
                 <span className="ed-meta-text"><strong>{weekday ? `${weekday}, ` : ''}{item.date}</strong><span>{item.time || 'Online · IST'}</span></span>
               </div>
               <div className="ed-meta-row">
-                <span className="ed-ico"><img src={`/work/${webinar ? 'emoji-globe.png' : 'emoji-pin.png'}`} alt="" /></span>
+                <span className="ed-ico"><img src={`/work/${webinar ? 'emoji-globe.webp' : 'emoji-pin.webp'}`} alt="" /></span>
                 <span className="ed-meta-text">
                   <strong>{webinar ? 'Online' : item.venue}</strong>
                   <span>{webinar ? 'Joining link shared on registration' : `${item.city}`}</span>
@@ -136,7 +136,7 @@ export default function EventDetail({ kind }) {
                 {past ? (
                   <>
                     <div className="ed-reg-status">
-                      <span className="ed-reg-ico"><img src="/work/emoji-hourglass.png" alt="" /></span>
+                      <span className="ed-reg-ico"><img src="/work/emoji-hourglass.webp" alt="" /></span>
                       <span><strong>{webinar ? 'This session has ended.' : 'This event has ended.'}</strong>
                         <em>{webinar ? 'A recording is available to watch.' : 'Follow us so you don’t miss the next one.'}</em></span>
                     </div>

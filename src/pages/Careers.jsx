@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { CAREERS_APPLY_ENG, CAREERS_APPLY } from '../data/site'
 import { Wordmark } from '../components/Nav'
+import { fetchOpenPositions } from '../apiClient'
 // One wide hero card for a team group photo; shows a labelled placeholder until
 // /work/team-group.jpg is added.
 function TeamPhoto() {
   const [ok, setOk] = React.useState(true)
-  if (ok) return <img className="cr-team-img" src="/work/team-group.jpg" alt="The TIES team" onError={() => setOk(false)} />
+  if (ok) return <img className="cr-team-img" src="/work/team-group.webp" alt="The TIES team" onError={() => setOk(false)} />
   return <div className="cr-team-ph"><span>Team group photo · 1920×820</span></div>
 }
 
@@ -85,6 +86,11 @@ const HIRE = [
 
 export default function Careers() {
   const [openDept, setOpenDept] = useState('Engineering')
+  const [livePositions, setLivePositions] = useState([])
+
+  useEffect(() => {
+    fetchOpenPositions().then((data) => { if (data?.length) setLivePositions(data) })
+  }, [])
   return (
     <>
       <Nav variant="solid" />

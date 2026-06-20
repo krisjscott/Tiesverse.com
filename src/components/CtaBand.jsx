@@ -7,7 +7,7 @@ import { CAREERS_URL } from '../data/site'
 export default function CtaBand() {
   return (
     <section className="cta-band">
-      <ImgBg src="/work/cta-backdrop.png" label="CTA illustration: 1920×900, warm dusk / India motif" />
+      <ImgBg src="/work/cta-backdrop.webp" label="CTA illustration: 1920×900, warm dusk / India motif" />
       <div className="container cta-band-inner">
         <h2 className="serif">The new standard for how<br />India <span className="ital cta-band-ital">reads the world</span> and<br />the world <span className="ital cta-band-ital">reads about India.</span></h2>
         <p>Subscribe to the network, follow along, or come build it with us.</p>

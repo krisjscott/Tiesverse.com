@@ -7,13 +7,23 @@ import CtaBand from '../components/CtaBand'
 import {
   PARENT, BRANDS, CAREERS_URL, TESTIMONIALS, WEBINARS, CITY_EVENTS, WORK, ASSOCIATIONS, LOGOS, slugify,
 } from '../data/site'
+import { fetchEvents, fetchWebinarEvents, fetchGuests } from '../apiClient'
+
+// Merge live API data with static fallback: API items come first, then static
+function useLiveData(apiFn, staticFallback) {
+  const [data, setData] = useState(staticFallback)
+  useEffect(() => {
+    apiFn().then((live) => { if (live && Array.isArray(live) && live.length) setData(live) })
+  }, [])
+  return data
+}
 
 const initials = (n) => n.split(' ').filter(Boolean).slice(0, 2).map((w) => w[0]).join('')
 
 const RECOGNITION = [
-  { title: 'Anuvadhini Fellow Award', src: 'AICTE, Ministry of Education', logo: 'emoji-trophy.png' },
-  { title: 'India AI Impact Summit', src: 'Knowledge partner · New Delhi', logo: 'emoji-sparkles.png' },
-  { title: 'Endorsed by national voices', src: 'Shashi Tharoor · Priyanka Chaturvedi', logo: 'emoji-institution.png' },
+  { title: 'Anuvadhini Fellow Award', src: 'AICTE, Ministry of Education', logo: 'emoji-trophy.webp' },
+  { title: 'India AI Impact Summit', src: 'Knowledge partner · New Delhi', logo: 'emoji-sparkles.webp' },
+  { title: 'Endorsed by national voices', src: 'Shashi Tharoor · Priyanka Chaturvedi', logo: 'emoji-institution.webp' },
 ]
 const HERO_STATS = [
   { n: '100M+', l: 'Monthly views' },
@@ -21,8 +31,8 @@ const HERO_STATS = [
   { n: '7M+', l: 'Interactions' },
 ]
 const FEATURES = [
-  { k: 'Research', flip: false, h: 'Rigorous research, not recycled takes.', p: 'Original analysis and strategic forecasting across the systems shaping a multipolar world.', p2: 'From daily briefs to deep dives, every piece is grounded in primary sources, data and strategic context, built to be understood, not just admired.', list: ['Geopolitics & foreign policy', 'Markets & finance', 'Elections & data'], img: 'Research report cover', image: 'feat-research.png', cta: 'Read the latest research', to: '/research' },
-  { k: 'Media', flip: true, h: 'High-fidelity media for millions.', p: 'Films, reels, podcasts and reporting: turning high-level intelligence into stories people finish and share.', p2: 'In every format, across every platform, reaching tens of millions each month without losing the rigour behind the story.', list: ['Films & explainers', 'Reels & shorts', 'Podcasts & reporting'], img: 'Film / reel thumbnail', image: 'feat-media.png', cta: 'Watch our films & reels', to: '/media' },
+  { k: 'Research', flip: false, h: 'Rigorous research, not recycled takes.', p: 'Original analysis and strategic forecasting across the systems shaping a multipolar world.', p2: 'From daily briefs to deep dives, every piece is grounded in primary sources, data and strategic context, built to be understood, not just admired.', list: ['Geopolitics & foreign policy', 'Markets & finance', 'Elections & data'], img: 'Research report cover', image: 'feat-research.webp', cta: 'Read the latest research', to: '/research' },
+  { k: 'Media', flip: true, h: 'High-fidelity media for millions.', p: 'Films, reels, podcasts and reporting: turning high-level intelligence into stories people finish and share.', p2: 'In every format, across every platform, reaching tens of millions each month without losing the rigour behind the story.', list: ['Films & explainers', 'Reels & shorts', 'Podcasts & reporting'], img: 'Film / reel thumbnail', image: 'feat-media.webp', cta: 'Watch our films & reels', to: '/media' },
 ]
 const RMT = [
   { n: '01', t: 'Research', d: 'Briefs, deep dives and strategic forecasts across geopolitics, markets and elections.' },
@@ -30,9 +40,9 @@ const RMT = [
   { n: '03', t: 'Technology', d: 'Proprietary tools and platforms that open up information and bring the community in.' },
 ]
 const PRODUCE = [
-  { title: 'Revitalizing India’s Arctic Policy', file: 'arctic-policy.jpg', img: 'Arctic Policy report cover' },
-  { title: 'What is the Mother of All Deals?', file: 'mother-of-all-deals.jpg', img: 'India–EU FTA cover' },
-  { title: 'Strait of Hormuz', file: 'strait-of-hormuz.jpg', img: 'Geo Atlas map cover' },
+  { title: 'Revitalizing India’s Arctic Policy', file: 'arctic-policy.webp', img: 'Arctic Policy report cover' },
+  { title: 'What is the Mother of All Deals?', file: 'mother-of-all-deals.webp', img: 'India–EU FTA cover' },
+  { title: 'Strait of Hormuz', file: 'strait-of-hormuz.webp', img: 'Geo Atlas map cover' },
 ]
 
 // shows /work/<file> if present, else the labelled placeholder
@@ -82,10 +92,10 @@ function LogoTile({ file, name }) {
 // Interim CTA destination: swap to a real form/product link when chosen.
 const TECH_LEAD = '/contact'
 const TECH = [
-  { t: 'Tabloid by Ties', tag: 'Consumer', image: 'tech-tabloid.png', d: 'A Ground News–style reader that shows every side of a story: compare coverage and cut through the bias.', cta: 'Get early access', href: TECH_LEAD },
-  { t: 'Geo Atlas', tag: 'Govt & Enterprise', image: 'tech-geoatlas.png', d: 'An intelligence platform bringing geopolitical news, maps and intel together, built for government and enterprise.', cta: 'Request a demo', href: TECH_LEAD },
-  { t: 'Naukri X', tag: 'The Bharat Age', image: 'tech-naukrix.png', d: 'A government-jobs platform: opportunities, resources, syllabi and prep, all in one place for aspirants.', cta: 'Notify me at launch', href: TECH_LEAD },
-  { t: 'In-house systems', tag: '40-strong eng team', image: 'tech-inhouse.png', d: 'A dedicated engineering team building the internal tooling that powers the whole organisation.', cta: 'Build with us', href: '/careers' },
+  { t: 'Tabloid by Ties', tag: 'Consumer', image: 'tech-tabloid.webp', d: 'A Ground News–style reader that shows every side of a story: compare coverage and cut through the bias.', cta: 'Get early access', href: TECH_LEAD },
+  { t: 'Geo Atlas', tag: 'Govt & Enterprise', image: 'tech-geoatlas.webp', d: 'An intelligence platform bringing geopolitical news, maps and intel together, built for government and enterprise.', cta: 'Request a demo', href: TECH_LEAD },
+  { t: 'Naukri X', tag: 'The Bharat Age', image: 'tech-naukrix.webp', d: 'A government-jobs platform: opportunities, resources, syllabi and prep, all in one place for aspirants.', cta: 'Notify me at launch', href: TECH_LEAD },
+  { t: 'In-house systems', tag: '40-strong eng team', image: 'tech-inhouse.webp', d: 'A dedicated engineering team building the internal tooling that powers the whole organisation.', cta: 'Build with us', href: '/careers' },
 ]
 
 // true once an event date has passed (registration closes, recording goes up)
@@ -122,7 +132,7 @@ const SPOTLIGHT_FEATURED = [
     flag: 'Registrations open',
     title: 'Checkmate & Chatter',
     meta: 'Debate Competition · by TIES',
-    img: '/work/poster-checkmate-chatter.png',
+    img: '/work/poster-checkmate-chatter.webp',
     href: 'https://www.tiesverse.com/workshop',
     cta: 'Register now', why: 'Open to all · Hosted by TIES', when: null, up: true,
   },
@@ -244,6 +254,11 @@ function Spotlight() {
 }
 
 export default function Home() {
+  // Live data from Node.js backend — falls back to static site.js data if API is unreachable
+  const liveWebinars = useLiveData(fetchWebinarEvents, WEBINARS)
+  const liveGuests = useLiveData(fetchGuests, [])
+  const liveEvents = useLiveData(fetchEvents, CITY_EVENTS)
+
   const [ti, setTi] = useState(0)
   const [tt, setTt] = useState(0)
   const tm = TESTIMONIALS[ti]
@@ -259,7 +274,7 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <ImgBg src="/work/hero.png" label="hero illustration: 1920×1080, dark atmospheric (maps · research · tech)" />
+        <ImgBg src="/work/hero.webp" label="hero illustration: 1920×1080, dark atmospheric (maps · research · tech)" />
         <div className="container hero-inner">
           <h1 className="serif">India's leading youth-led org. in<br /><span className="ital hero-ital">research, media &amp; tech.</span></h1>
           <p className="hero-sub">We combine rigorous research, influential digital media, and cutting-edge technology to identify opportunities, engage large audiences, and deliver impactful outcomes.</p>
@@ -377,7 +392,7 @@ export default function Home() {
               <a className="btn btn-outline" href="https://discord.gg/fpfKFwxa" target="_blank" rel="noreferrer">Join the community</a>
             </div>
           </div>
-          <div className="rmt-visual"><img className="rmt-img" src="/work/rmt-visual.png" alt="Research, media and technology: Tiesverse" /></div>
+          <div className="rmt-visual"><img className="rmt-img" src="/work/rmt-visual.webp" alt="Research, media and technology: Tiesverse" /></div>
           <div className="rmt-steps">
             {RMT.map((s) => (
               <div className="rmt-step" key={s.n}>
@@ -436,15 +451,18 @@ export default function Home() {
         <div className="container">
           <div className="sec-head sec-head-split"><div><span className="eyebrow accent">Webinars</span><h2 className="serif on-dark-h">Recent sessions.</h2></div><Link className="sessions-all" to="/webinars">All webinars →</Link></div>
           <div className="sessions-row">
-            {WEBINARS.slice(0, 4).map((w, i) => {
-              const past = isPastDate(w.date)
+            {liveWebinars.slice(0, 4).map((w, i) => {
+              const past = isPastDate(w.date || w.startAt)
+              const topic = w.topic || w.title || ''
+              const speaker = w.speaker || w.organizer?.name || ''
+              const date = w.date || (w.startAt ? new Date(w.startAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '')
               return (
                 <article className="poster" key={i}>
-                  <Link to={`/webinars/${slugify(w.topic)}`} className="poster-link"><PosterImg file={w.poster} label={w.topic} /></Link>
-                  <span className="poster-date">{w.date}</span>
-                  <h4><Link to={`/webinars/${slugify(w.topic)}`}>{w.topic}</Link></h4>
-                  <span className="poster-speaker">{w.speaker}</span>
-                  <Link className={`btn ${past ? 'btn-ghost-dark' : 'btn-primary'} poster-cta`} to={`/webinars/${slugify(w.topic)}`}>{past ? 'Watch recording' : 'Register'}</Link>
+                  <Link to={`/webinars/${slugify(topic)}`} className="poster-link"><PosterImg file={w.poster || w.coverImageUrl} label={topic} /></Link>
+                  <span className="poster-date">{date}</span>
+                  <h4><Link to={`/webinars/${slugify(topic)}`}>{topic}</Link></h4>
+                  <span className="poster-speaker">{speaker}</span>
+                  <Link className={`btn ${past ? 'btn-ghost-dark' : 'btn-primary'} poster-cta`} to={`/webinars/${slugify(topic)}`}>{past ? 'Watch recording' : 'Register'}</Link>
                 </article>
               )
             })}
@@ -454,7 +472,7 @@ export default function Home() {
 
       {/* FOUNDERS LETTER: card over full-bleed image (Plum format) */}
       <section className="letter">
-        <div className="letter-bg"><ImgBg src="/work/letter-backdrop.png" label="Founders / team: full-bleed background (1920×1000)" /></div>
+        <div className="letter-bg"><ImgBg src="/work/letter-backdrop.webp" label="Founders / team: full-bleed background (1920×1000)" /></div>
         <div className="letter-card">
           <h2 className="serif">A letter from<br />the founders</h2>
           <p className="letter-sub">Every idea is built for Bharat.</p>
@@ -462,8 +480,8 @@ export default function Home() {
           <p>We don't just inform. We educate, engage and mobilise. Everything you see here is made by the youth, for the youth. Bold, clear and accessible.</p>
           <p className="letter-warmly">Warmly,</p>
           <div className="letter-sign">
-            <span><img className="sig-img" src="/work/sig-hardik.png" alt="Hardik Pathak signature" /><strong>Hardik Pathak</strong><em>Co-Founder</em></span>
-            <span><img className="sig-img" src="/work/sig-pruthaviraj.png" alt="Pruthavirajsingh Dulat signature" /><strong>Pruthavirajsingh Dulat</strong><em>Co-Founder</em></span>
+            <span><img className="sig-img" src="/work/sig-hardik.webp" alt="Hardik Pathak signature" /><strong>Hardik Pathak</strong><em>Co-Founder</em></span>
+            <span><img className="sig-img" src="/work/sig-pruthaviraj.webp" alt="Pruthavirajsingh Dulat signature" /><strong>Pruthavirajsingh Dulat</strong><em>Co-Founder</em></span>
           </div>
         </div>
       </section>

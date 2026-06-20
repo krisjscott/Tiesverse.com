@@ -2,7 +2,7 @@
 export const SITE = {
   name: 'Tiesverse',
   url: 'https://www.tiesverse.com',
-  image: 'https://www.tiesverse.com/og.png',
+  image: 'https://www.tiesverse.com/og.webp',
   desc: "India's leading youth-led Research, Media & Technology organisation. Seven brands, one way of reading the world.",
 }
 
