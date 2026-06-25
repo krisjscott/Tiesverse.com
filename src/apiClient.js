@@ -1,33 +1,90 @@
-// Public API client for the main site.
-// Reads from the Node.js backend (tiesversewebsite/backend) which proxies Supabase.
+// Public data client for tiesverse.com landing site.
+// Landing collections (events, articles, youtube_videos, workshops,
+// team_members, guests, webinars) read directly from Supabase.
+// Career positions read from the career-site Node proxy (Cloudflare D1).
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+import { supabase } from './supabaseClient'
 
-async function get(path) {
+// ── helpers ──────────────────────────────────────────────────────────────────
+
+async function query(table, builder) {
   try {
-    const res = await fetch(`${API}${path}`);
-    if (!res.ok) return null;
-    return res.json();
-  } catch {
-    return null;
+    const q = builder ? builder(supabase.from(table)) : supabase.from(table).select('*')
+    const { data, error } = await q
+    if (error) { console.warn(`[supabase] ${table}:`, error.message); return null }
+    return data
+  } catch (e) {
+    console.warn(`[supabase] ${table}:`, e.message)
+    return null
   }
 }
 
-export const fetchEvents = () => get('/api/events');
-export const fetchFeaturedEvent = () => get('/api/events/featured');
-export const fetchArticles = () => get('/api/articles');
-export const fetchYoutubeVideos = () => get('/api/youtube-videos');
-export const fetchWorkshops = () => get('/api/workshops');
-export const fetchTeam = () => get('/api/team');
-export const fetchGuests = () => get('/api/guests');
-export const fetchSettings = () => get('/api/settings');
+async function cfGet(path) {
+  const api = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  try {
+    const res = await fetch(`${api}${path}`)
+    if (!res.ok) return null
+    return res.json()
+  } catch {
+    return null
+  }
+}
 
-// Webinar events – read from Node.js which proxies Turso via webinar site
-export const fetchWebinarEvents = () => get('/api/webinar/events');
+// ── Webinars (Turso canonical, mirrored into Supabase by admin) ───────────────
+export const fetchWebinarEvents = () =>
+  query('webinars', (q) =>
+    q.select('*').order('date', { ascending: false })
+  )
 
-// Career positions – public (no auth needed for listing open positions)
+// ── City / offline events ─────────────────────────────────────────────────────
+export const fetchEvents = () =>
+  query('events', (q) =>
+    q.select('*').order('date', { ascending: true })
+  )
+
+export const fetchFeaturedEvent = () =>
+  query('events', (q) =>
+    q.select('*').eq('flagship', true).eq('past', false).limit(1).maybeSingle()
+  )
+
+// ── Articles & reports ────────────────────────────────────────────────────────
+export const fetchArticles = () =>
+  query('articles', (q) =>
+    q.select('*').eq('published', true).order('created_at', { ascending: false })
+  )
+
+export const fetchArticleBySlug = (slug) =>
+  query('articles', (q) =>
+    q.select('*').eq('slug', slug).eq('published', true).maybeSingle()
+  )
+
+// ── YouTube videos ────────────────────────────────────────────────────────────
+export const fetchYoutubeVideos = () =>
+  query('youtube_videos', (q) =>
+    q.select('*').order('published_at', { ascending: false })
+  )
+
+// ── Workshops ─────────────────────────────────────────────────────────────────
+export const fetchWorkshops = () =>
+  query('workshops', (q) =>
+    q.select('*').order('date', { ascending: true })
+  )
+
+// ── Team members ──────────────────────────────────────────────────────────────
+export const fetchTeam = () =>
+  query('team_members', (q) =>
+    q.select('*').order('display_order', { ascending: true })
+  )
+
+// ── Guests ────────────────────────────────────────────────────────────────────
+export const fetchGuests = () =>
+  query('guests', (q) =>
+    q.select('*').order('created_at', { ascending: false })
+  )
+
+// ── Career open positions (Cloudflare D1 via Node proxy) ─────────────────────
 export const fetchOpenPositions = async () => {
-  const data = await get('/api/career/positions');
-  if (!data) return [];
-  return data.filter((p) => p.position_var);
-};
+  const data = await cfGet('/api/career/positions')
+  if (!data) return []
+  return data.filter((p) => p.position_var)
+}
