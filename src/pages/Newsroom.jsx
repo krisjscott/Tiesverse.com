@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { ImgPlaceholder } from '../components/ImgPlaceholder'
 import { WORK, MAPS, MAP_IMAGES } from '../data/site'
+import { fetchArticles } from '../apiClient'
 
 const COLORS = ['#FE7A00', '#16A34A', '#00B4D8', '#9B26FF', '#E0A400', '#FF007F']
-const featured = WORK[0]
-const rest = WORK.slice(1)
 
-const Cover = ({ i, label, img }) => {
-  if (img) return <span className="nw-cover nw-cover-photo"><img src={`/work/${img}`} alt={label} /></span>
+// Normalize a Supabase article row to the shape the components expect
+const toWorkShape = (a) => ({
+  t: a.title, cat: a.cat || a.topic, img: null, cover_url: a.cover_url, slug: a.slug,
+})
+
+const Cover = ({ i, label, img, cover_url }) => {
+  const src = cover_url || (img ? `/work/${img}` : null)
+  if (src) return <span className="nw-cover nw-cover-photo"><img src={src} alt={label} /></span>
   const c = COLORS[i % COLORS.length]
   return (
     <span className="nw-cover" style={{ '--bc': c }}>
@@ -21,6 +26,14 @@ const Cover = ({ i, label, img }) => {
 }
 
 export default function Newsroom() {
+  const [articles, setArticles] = useState(WORK.map(toWorkShape))
+  useEffect(() => {
+    fetchArticles().then((live) => {
+      if (live && live.length) setArticles(live.map(toWorkShape))
+    })
+  }, [])
+  const featured = articles[0]
+  const rest = articles.slice(1)
   return (
     <>
       <Nav variant="solid" />
@@ -38,13 +51,13 @@ export default function Newsroom() {
               <p>Original analysis from across the house: research-driven, sharply made, built to be understood.</p>
               <a className="btn btn-primary" href="#">Read more</a>
             </div>
-            <div className="nw-featured-cover"><Cover i={0} label={featured.cat} img={featured.img} /></div>
+            <div className="nw-featured-cover"><Cover i={0} label={featured.cat} img={featured.img} cover_url={featured.cover_url} /></div>
           </article>
 
           <div className="nw-grid">
             {rest.map((p, i) => (
               <a className="nw-card" href="#" key={i} style={{ '--bc': COLORS[(i + 1) % COLORS.length] }}>
-                <Cover i={i + 1} label={p.cat} img={p.img} />
+                <Cover i={i + 1} label={p.cat} img={p.img} cover_url={p.cover_url} />
                 <span className="nw-date">{p.cat}</span>
                 <h3 className="serif">{p.t}</h3>
               </a>

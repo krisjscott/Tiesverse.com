@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import ReportCard from '../components/ReportCard'
 import { REPORTS, REPORT_TOPICS } from '../data/site'
+import { fetchArticles } from '../apiClient'
+
+// Normalize Supabase article row to the shape ReportCard expects
+const toReportShape = (a) => ({
+  slug: a.slug, title: a.title, dek: a.dek, topic: a.topic, kind: a.kind,
+  date: a.date, read_time: a.read_time, cover_url: a.cover_url,
+  featured: a.featured,
+})
 
 export default function Research() {
+  const [reports, setReports] = useState(REPORTS)
+  useEffect(() => {
+    fetchArticles().then((live) => {
+      if (live && live.length) {
+        const research = live
+          .filter((a) => ['Report', 'Brief', 'Analysis'].includes(a.kind))
+          .map(toReportShape)
+        if (research.length) setReports(research)
+      }
+    })
+  }, [])
   const [topic, setTopic] = useState('All')
-  const featured = REPORTS.find((r) => r.featured) || REPORTS[0]
-  const rest = REPORTS.filter((r) => r.slug !== featured.slug)
+  const featured = reports.find((r) => r.featured) || reports[0]
+  const rest = reports.filter((r) => r.slug !== featured?.slug)
   const shown = topic === 'All' ? rest : rest.filter((r) => r.topic === topic)
 
   return (
@@ -18,7 +37,7 @@ export default function Research() {
       <main className="pad-top rs">
         <section className="rs-hero container">
           <span className="eyebrow accent">What we do · Research</span>
-          <h1 className="serif">Research <span className="ital">that does the reading</span> so the next generation doesn’t have to guess.</h1>
+          <h1 className="serif">Research <span className="ital">that does the reading</span> so the next generation doesn't have to guess.</h1>
           <p className="rs-lead">Rigorous analysis of geopolitical shifts, markets and strategic forecasting for a multipolar world — published as briefs, deep dives and reports.</p>
         </section>
 

@@ -1,19 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Nav from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { GUESTS } from '../data/site'
+import { fetchGuests } from '../apiClient'
 
 const initials = (n) => n.replace(/\(.*?\)/g, '').split(' ').filter((w) => /[A-Za-z]/.test(w)).slice(0, 2).map((w) => w[0]).join('')
 
 // Speaker-style card: full-bleed portrait, bottom scrim, name + role overlaid.
 // Falls back to a neutral toned tile with large faint initials when no photo.
 function GuestCard({ g }) {
-  const [ok, setOk] = React.useState(Boolean(g.photo))
+  // photo_url (Supabase) or legacy photo filename (static fallback)
+  const photoSrc = g.photo_url || (g.photo ? `/work/${g.photo}` : null)
+  const [ok, setOk] = React.useState(Boolean(photoSrc))
   return (
     <article className="gs-card">
-      {ok && g.photo
-        ? <img className="gs-img" src={`/work/${g.photo}`} alt={g.name} onError={() => setOk(false)} />
+      {ok && photoSrc
+        ? <img className="gs-img" src={photoSrc} alt={g.name} onError={() => setOk(false)} />
         : <span className="gs-img gs-img-ph" aria-hidden>{initials(g.name)}</span>}
       <span className="gs-scrim" aria-hidden />
       <div className="gs-meta">
@@ -25,6 +28,12 @@ function GuestCard({ g }) {
 }
 
 export default function Guests() {
+  const [guests, setGuests] = useState(GUESTS)
+  useEffect(() => {
+    fetchGuests().then((live) => {
+      if (live && live.length) setGuests(live)
+    })
+  }, [])
   return (
     <>
       <Nav variant="solid" />
@@ -32,11 +41,11 @@ export default function Guests() {
         <div className="container">
           <header className="gs-head">
             <span className="eyebrow accent">Engagements · Voices</span>
-            <h1 className="serif">The people who’ve<br /><span className="ital">joined us.</span></h1>
+            <h1 className="serif">The people who've<br /><span className="ital">joined us.</span></h1>
             <p className="gs-sub">Leaders, scholars and policymakers who have shared our summits, panels and editorial sessions, shaping discourse across geopolitics, media and technology.</p>
           </header>
           <div className="gs-grid">
-            {GUESTS.map((g, i) => <GuestCard g={g} key={i} />)}
+            {guests.map((g, i) => <GuestCard g={g} key={i} />)}
           </div>
         </div>
       </main>

@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 export default function ReportCard({ r, featured }) {
   return (
     <Link className={`rc ${featured ? 'rc-feat' : ''}`} to={`/research/${r.slug}`}>
-      <span className="rc-cover"><img src={`/work/${r.cover}`} alt="" loading="lazy" /></span>
+      <span className="rc-cover"><img src={r.cover_url || `/work/${r.cover}`} alt="" loading="lazy" /></span>
       <span className="rc-body">
         <span className="rc-topic">{r.topic} · {r.kind}</span>
         <strong className="serif rc-title">{r.title}</strong>
         <span className="rc-dek">{r.dek}</span>
-        <span className="rc-meta">{r.date} · {r.readTime}</span>
+        <span className="rc-meta">{r.date} · {r.read_time || r.readTime}</span>
         <span className="rc-go">Read report <span>→</span></span>
       </span>
       <style>{`
