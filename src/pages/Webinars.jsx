@@ -89,15 +89,16 @@ export default function Webinars() {
   useEffect(() => {
     fetchWebinarEvents().then((live) => {
       if (live && Array.isArray(live) && live.length) {
-        // Normalize Turso event shape to match static WEBINARS shape
+        // Normalize Supabase webinars row to the shape Webinars.jsx expects
         const normalized = live.map((e) => ({
-          date: e.startAt ? new Date(e.startAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : '',
-          time: e.startAt ? new Date(e.startAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST' : '',
-          speaker: e.organizer?.name || '',
-          org: e.organizer?.bio || '',
-          topic: e.title || '',
-          poster: e.coverImageUrl || null,
-          register: e.meetingUrl || '',
+          date:     e.date || (e.startAt ? new Date(e.startAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' }) : ''),
+          time:     e.time_tz || (e.startAt ? new Date(e.startAt).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }) + ' IST' : ''),
+          speaker:  e.speaker || e.organizer?.name || '',
+          org:      e.org || e.organizer?.bio || '',
+          topic:    e.title || '',
+          poster:   e.cover_url || e.coverImageUrl || null,
+          register: e.registration_link || e.meetingUrl || '',
+          status:   e.status || (e.cover_url ? 'upcoming' : 'past'),
         }))
         setAllWebinars(normalized)
       }
