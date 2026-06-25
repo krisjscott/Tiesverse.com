@@ -88,3 +88,33 @@ export const fetchOpenPositions = async () => {
   if (!data) return []
   return data.filter((p) => p.position_var)
 }
+
+// ── Event / webinar registration (Django admin backend → Turso + SES + Razorpay)
+const ADMIN_API = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:8000'
+
+async function adminPost(path, body) {
+  const res = await fetch(`${ADMIN_API}${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  })
+  let data = null
+  try { data = await res.json() } catch { /* non-JSON response */ }
+  if (!res.ok) {
+    const msg = (data && data.error) || `Request failed (${res.status})`
+    throw new Error(msg)
+  }
+  return data
+}
+
+// Free registration → saves to Turso, sends confirmation email
+export const registerForEvent = (payload) =>
+  adminPost('/api/webinar/register/', payload)
+
+// Paid registration step 1 → create a Razorpay order
+export const createPaymentOrder = (payload) =>
+  adminPost('/api/webinar/create-order/', payload)
+
+// Paid registration step 2 → verify the signature, mark paid, send email
+export const verifyPayment = (payload) =>
+  adminPost('/api/webinar/verify-payment/', payload)

@@ -4,6 +4,7 @@ import Nav, { Wordmark } from '../components/Nav'
 import Footer from '../components/Footer'
 import CtaBand from '../components/CtaBand'
 import { ImgPlaceholder } from '../components/ImgPlaceholder'
+import RegisterModal from '../components/RegisterModal'
 import { WEBINARS, CITY_EVENTS, slugify } from '../data/site'
 
 const WEBINAR_REGISTER = 'https://tiesverse.com/webinar'
@@ -36,6 +37,7 @@ function Poster({ file, label }) {
 
 export default function EventDetail({ kind }) {
   const { slug } = useParams()
+  const [showReg, setShowReg] = React.useState(false)
   const webinar = kind === 'webinar'
   const list = webinar ? WEBINARS : CITY_EVENTS
   const item = list.find((x) => slugify(webinar ? x.topic : x.title) === slug)
@@ -161,7 +163,7 @@ export default function EventDetail({ kind }) {
                       <span><strong>{webinar ? 'Online · open to all' : 'In person · limited seats'}</strong>
                         <em>{webinar ? 'Register to get the link.' : 'Register to reserve your spot.'}</em></span>
                     </div>
-                    <a className="btn btn-primary ed-reg-cta" href={registerUrl} target="_blank" rel="noreferrer">{price === 0 ? 'Register' : 'Get tickets'}</a>
+                    <button className="btn btn-primary ed-reg-cta" onClick={() => setShowReg(true)}>{price === 0 ? 'Register' : `Get tickets · ₹${price}`}</button>
                   </>
                 )}
               </div>
@@ -197,6 +199,18 @@ export default function EventDetail({ kind }) {
       </main>
       <CtaBand />
       <Footer />
+      {showReg && (
+        <RegisterModal
+          event={{
+            id: item.id || slug,
+            title,
+            type: webinar ? 'webinar' : 'event',
+            price,
+            date: item.date,
+          }}
+          onClose={() => setShowReg(false)}
+        />
+      )}
       <style>{css}</style>
     </>
   )
@@ -249,7 +263,7 @@ const css = `
 .ed-reg-save{font-family:var(--sans);font-size:11.5px;font-weight:700;color:var(--ink);background:#fff3e3;border:1px solid rgba(254,122,0,.28);border-radius:6px;padding:2px 8px;transform:translateY(-3px)}
 .ed-reg-status strong{display:block;font-size:15px;color:var(--ink)}
 .ed-reg-status em{font-style:normal;font-size:13px;color:var(--soft)}
-.ed-reg-cta{width:100%;justify-content:center;display:flex;font-size:15px;padding:13px}
+.ed-reg-cta{width:100%;justify-content:center;display:flex;font-size:15px;padding:13px;cursor:pointer;font-family:inherit}
 
 /* sections */
 .ed-section{border-top:1px solid var(--rule);padding:30px 0}
