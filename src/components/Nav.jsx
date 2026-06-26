@@ -1,48 +1,87 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { NAV, BRANDS, CAREERS_URL, FOUNDER_VOICES, NAV_FEATURE } from '../data/site'
-import { ImgPlaceholder } from './ImgPlaceholder'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  NAV,
+  BRANDS,
+  CAREERS_URL,
+  FOUNDER_VOICES,
+  NAV_FEATURE,
+} from "../data/site";
+import { ImgPlaceholder } from "./ImgPlaceholder";
 
 export function Wordmark({ light }) {
   return (
-    <span className={`wm ${light ? 'wm-light' : ''}`}>
-      <span className="wm-dot">.</span>ties<span className="wm-verse">verse</span>
+    <span className={`wm ${light ? "wm-light" : ""}`}>
+      <span className="wm-dot">.</span>ties
+      <span className="wm-verse">verse</span>
     </span>
-  )
+  );
 }
 
-export default function Nav({ variant = 'solid' }) {
-  const [open, setOpen] = useState(null)
-  const [mobileOpen, setMobileOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const closeMobile = () => setMobileOpen(false)
-  useEffect(() => {
-    const f = () => setScrolled(window.scrollY > 20)
-    f(); window.addEventListener('scroll', f, { passive: true })
-    return () => window.removeEventListener('scroll', f)
-  }, [])
+// Standalone career-page app (separate Django site). Configurable per-env.
+const CAREER_URL =
+  import.meta.env.VITE_CAREER_URL || "https://career.tiesverse.com";
 
-  const overlay = variant === 'overlay' && !scrolled
+export default function Nav({ variant = "solid" }) {
+  const [open, setOpen] = useState(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const closeMobile = () => setMobileOpen(false);
+  useEffect(() => {
+    const f = () => setScrolled(window.scrollY > 20);
+    f();
+    window.addEventListener("scroll", f, { passive: true });
+    return () => window.removeEventListener("scroll", f);
+  }, []);
+
+  const overlay = variant === "overlay" && !scrolled;
 
   return (
-    <header className={`nav ${overlay ? 'nav-overlay' : 'nav-solid'}`} onMouseLeave={() => setOpen(null)}>
+    <header
+      className={`nav ${overlay ? "nav-overlay" : "nav-solid"}`}
+      onMouseLeave={() => setOpen(null)}
+    >
       <div className="nav-inner">
-        <Link to="/" className="nav-logo"><Wordmark light={overlay} /></Link>
+        <Link to="/" className="nav-logo">
+          <Wordmark light={overlay} />
+        </Link>
 
         <nav className="nav-menu" aria-label="Primary">
           {NAV.map((item) => (
-            <div className="nav-item" key={item.label} onMouseEnter={() => setOpen(item.label)}>
-              <button className="nav-trigger" aria-expanded={open === item.label}>
-                <span className="nav-plus">+</span>{item.label}
+            <div
+              className="nav-item"
+              key={item.label}
+              onMouseEnter={() => setOpen(item.label)}
+            >
+              <button
+                className="nav-trigger"
+                aria-expanded={open === item.label}
+              >
+                <span className="nav-plus">+</span>
+                {item.label}
               </button>
             </div>
           ))}
         </nav>
 
         <div className="nav-right">
-          <Link to="/careers" className="btn btn-primary nav-cta">Join us</Link>
-          <button className={`nav-burger ${mobileOpen ? 'on' : ''}`} aria-label="Menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen((v) => !v)}>
-            <span /><span /><span />
+          <a
+            href={CAREER_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-primary nav-cta"
+          >
+            Join us
+          </a>
+          <button
+            className={`nav-burger ${mobileOpen ? "on" : ""}`}
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span />
+            <span />
+            <span />
           </button>
         </div>
       </div>
@@ -54,19 +93,47 @@ export default function Nav({ variant = 'solid' }) {
             <div className="nm-group" key={item.label}>
               <span className="nm-head">{item.label}</span>
               <div className="nm-links">
-                {item.col === 'brands'
+                {item.col === "brands"
                   ? BRANDS.map((b) => (
-                      <a key={b.key} href={b.url} target={b.url.startsWith('http') ? '_blank' : undefined} rel="noreferrer" onClick={closeMobile}>{b.name}</a>
+                      <a
+                        key={b.key}
+                        href={b.url}
+                        target={b.url.startsWith("http") ? "_blank" : undefined}
+                        rel="noreferrer"
+                        onClick={closeMobile}
+                      >
+                        {b.name}
+                      </a>
                     ))
                   : item.col.map((c) =>
-                      c.ext
-                        ? <a key={c.name} href={c.to} target="_blank" rel="noreferrer" onClick={closeMobile}>{c.name}</a>
-                        : <Link key={c.name} to={c.to} onClick={closeMobile}>{c.name}</Link>,
+                      c.ext ? (
+                        <a
+                          key={c.name}
+                          href={c.to}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={closeMobile}
+                        >
+                          {c.name}
+                        </a>
+                      ) : (
+                        <Link key={c.name} to={c.to} onClick={closeMobile}>
+                          {c.name}
+                        </Link>
+                      ),
                     )}
               </div>
             </div>
           ))}
-          <Link className="btn btn-primary nm-cta" to="/careers" onClick={closeMobile}>Join us</Link>
+          <a
+            className="btn btn-primary nm-cta"
+            href={CAREER_URL}
+            target="_blank"
+            rel="noreferrer"
+            onClick={closeMobile}
+          >
+            Join us
+          </a>
         </div>
       )}
 
@@ -75,34 +142,61 @@ export default function Nav({ variant = 'solid' }) {
         <div className="mega" onMouseLeave={() => setOpen(null)}>
           <div className="mega-inner">
             {(() => {
-              const item = NAV.find((n) => n.label === open)
-              if (!item) return null
-              if (item.col === 'brands') {
+              const item = NAV.find((n) => n.label === open);
+              if (!item) return null;
+              if (item.col === "brands") {
                 return (
                   <div className="mega-brands">
                     {BRANDS.map((b) => (
-                      <a className="mega-brand" key={b.key} href={b.url} target={b.url.startsWith('http') ? '_blank' : undefined} rel="noreferrer">
-                        <span className="mega-brand-mark"><img src={b.mark} alt="" /></span>
-                        <span><strong>{b.name}</strong><em>{b.domain}</em></span>
+                      <a
+                        className="mega-brand"
+                        key={b.key}
+                        href={b.url}
+                        target={b.url.startsWith("http") ? "_blank" : undefined}
+                        rel="noreferrer"
+                      >
+                        <span className="mega-brand-mark">
+                          <img src={b.mark} alt="" />
+                        </span>
+                        <span>
+                          <strong>{b.name}</strong>
+                          <em>{b.domain}</em>
+                        </span>
                       </a>
                     ))}
                   </div>
-                )
+                );
               }
-              const qi = NAV.filter((n) => n.col !== 'brands').findIndex((n) => n.label === item.label)
-              const tq = FOUNDER_VOICES[((qi < 0 ? 0 : qi) % FOUNDER_VOICES.length)]
+              const qi = NAV.filter((n) => n.col !== "brands").findIndex(
+                (n) => n.label === item.label,
+              );
+              const tq =
+                FOUNDER_VOICES[(qi < 0 ? 0 : qi) % FOUNDER_VOICES.length];
               return (
                 <div className="mega-layout">
                   <div className="mega-left">
                     <div className="mega-cols">
                       {item.col.map((c) =>
                         c.ext ? (
-                          <a className="mega-link" key={c.name} href={c.to} target="_blank" rel="noreferrer">
-                            <strong>{c.name}</strong><span>{c.desc}</span>
+                          <a
+                            className="mega-link"
+                            key={c.name}
+                            href={c.to}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            <strong>{c.name}</strong>
+                            <span>{c.desc}</span>
                           </a>
                         ) : (
-                          <Link className="mega-link" key={c.name} to={c.to} onClick={() => setOpen(null)}>
-                            <strong>{c.name}</strong><span>{c.desc}</span>
+                          <Link
+                            className="mega-link"
+                            key={c.name}
+                            to={c.to}
+                            onClick={() => setOpen(null)}
+                          >
+                            <strong>{c.name}</strong>
+                            <span>{c.desc}</span>
                           </Link>
                         ),
                       )}
@@ -111,17 +205,31 @@ export default function Nav({ variant = 'solid' }) {
                       <span className="mega-quote-mark">“</span>
                       <blockquote>{tq.quote}</blockquote>
                       <figcaption>
-                        <span className="mega-quote-id"><strong>{tq.name}</strong><span>{tq.role}</span></span>
-                        <span className="mega-quote-org"><b>.</b>ties<em>verse</em></span>
+                        <span className="mega-quote-id">
+                          <strong>{tq.name}</strong>
+                          <span>{tq.role}</span>
+                        </span>
+                        <span className="mega-quote-org">
+                          <b>.</b>ties<em>verse</em>
+                        </span>
                       </figcaption>
                     </figure>
                   </div>
                   <div className="mega-feature">
-                    <span className="mega-feat-eyebrow">Latest in {item.label}</span>
+                    <span className="mega-feat-eyebrow">
+                      Latest in {item.label}
+                    </span>
                     <div className="mega-feat-list">
                       {(NAV_FEATURE[item.label] || []).map((f) => (
-                        <Link className="mega-feat-card" key={f.title} to={f.to} onClick={() => setOpen(null)}>
-                          <span className="mega-feat-thumb"><img src={`/work/${f.img}`} alt="" loading="lazy" /></span>
+                        <Link
+                          className="mega-feat-card"
+                          key={f.title}
+                          to={f.to}
+                          onClick={() => setOpen(null)}
+                        >
+                          <span className="mega-feat-thumb">
+                            <img src={`/work/${f.img}`} alt="" loading="lazy" />
+                          </span>
                           <span className="mega-feat-ct">
                             <span className="mega-feat-kind">{f.kind}</span>
                             <strong>{f.title}</strong>
@@ -131,7 +239,7 @@ export default function Nav({ variant = 'solid' }) {
                     </div>
                   </div>
                 </div>
-              )
+              );
             })()}
           </div>
         </div>
@@ -139,7 +247,7 @@ export default function Nav({ variant = 'solid' }) {
 
       <style>{css}</style>
     </header>
-  )
+  );
 }
 
 const css = `
@@ -221,4 +329,4 @@ const css = `
 .nm-links a:hover{color:var(--ink)}
 .nm-cta{display:flex;width:100%;justify-content:center;margin-top:24px;font-size:16px;padding:14px}
 @media(max-width:980px){.nav-menu,.nav-sub{display:none}.nav-burger{display:flex}}
-`
+`;
