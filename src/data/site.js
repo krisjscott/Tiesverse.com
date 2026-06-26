@@ -846,8 +846,9 @@ export const SOCIALS = [
   ["Substack", "https://tiesindia.substack.com/"],
   ["Discord", "https://discord.gg/fpfKFwxa"],
 ];
-// On-site careers page; the external form is only used for the final "Apply" step.
-export const CAREERS_URL = "/career.com";
+// Standalone career-page app (separate site). Configurable per-env; matches Nav's CAREER_URL.
+export const CAREERS_URL =
+  import.meta.env.VITE_CAREER_URL || "https://career.tiesverse.com";
 export const CAREERS_APPLY_ENG = "https://binary.so/du7tC89";
 export const CAREERS_APPLY = "https://career.tiesverse.com/";
 
