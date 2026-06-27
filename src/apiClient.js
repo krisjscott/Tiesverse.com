@@ -20,7 +20,7 @@ async function query(table, builder) {
 }
 
 async function cfGet(path) {
-  const api = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+  const api = import.meta.env.VITE_API_URL || 'https://api.admin.tiesverse.com'
   try {
     const res = await fetch(`${api}${path}`)
     if (!res.ok) return null
@@ -90,7 +90,7 @@ export const fetchOpenPositions = async () => {
 }
 
 // ── Event / webinar registration (Django admin backend → Turso + SES + Razorpay)
-const ADMIN_API = import.meta.env.VITE_ADMIN_API_URL || 'http://localhost:8000'
+const ADMIN_API = import.meta.env.VITE_ADMIN_API_URL || 'https://api.admin.tiesverse.com'
 
 async function adminPost(path, body) {
   const res = await fetch(`${ADMIN_API}${path}`, {
